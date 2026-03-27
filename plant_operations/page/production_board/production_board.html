@@ -1,0 +1,86 @@
+<!-- Production Board — Gantt-style scheduling view -->
+<div id="production-board-root">
+
+  <!-- ── Top Control Bar ── -->
+  <div class="pb-toolbar">
+    <div class="pb-toolbar-left">
+      <button class="btn btn-xs btn-default pb-nav-btn" id="pb-prev-day"
+              title="Previous Day">
+        <i class="fa fa-chevron-left"></i>
+      </button>
+      <button class="btn btn-xs btn-primary" id="pb-today-btn">Today</button>
+      <button class="btn btn-xs btn-default pb-nav-btn" id="pb-next-day"
+              title="Next Day">
+        <i class="fa fa-chevron-right"></i>
+      </button>
+      <input type="date" id="pb-date-picker" class="pb-date-input" />
+      <span class="pb-date-display" id="pb-date-display"></span>
+    </div>
+
+    <div class="pb-toolbar-center">
+      <select id="pb-shift-filter" class="pb-shift-select">
+        <option value="All">All Shifts</option>
+        <option value="Day">Day</option>
+        <option value="Night">Night</option>
+        <option value="Swing">Swing</option>
+      </select>
+    </div>
+
+    <div class="pb-toolbar-right">
+      <button class="btn btn-xs btn-warning" id="pb-auto-schedule">
+        <i class="fa fa-magic"></i> Auto Schedule
+      </button>
+      <span class="pb-capacity-stat" id="pb-capacity-stat"></span>
+    </div>
+  </div>
+
+  <!-- ── Board Area ── -->
+  <div class="pb-board-wrapper">
+    <!-- Timeline Header -->
+    <div class="pb-timeline-header">
+      <div class="pb-machine-label-header">Machine</div>
+      <div class="pb-timeline-hours" id="pb-timeline-hours"></div>
+    </div>
+
+    <!-- Machine Rows -->
+    <div class="pb-machine-rows" id="pb-machine-rows">
+      <!-- Populated by JS -->
+      <div class="pb-loading">
+        <i class="fa fa-spinner fa-spin"></i> Loading schedule...
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Summary Bar ── -->
+  <div class="pb-summary-bar" id="pb-summary-bar">
+    <div class="pb-summary-item">
+      <span class="pb-summary-label">Total Jobs</span>
+      <span class="pb-summary-value" id="pb-total-jobs">0</span>
+    </div>
+    <div class="pb-summary-item">
+      <span class="pb-summary-label">Planned Hours</span>
+      <span class="pb-summary-value" id="pb-planned-hours">0</span>
+    </div>
+    <div class="pb-summary-item">
+      <span class="pb-summary-label">Capacity</span>
+      <span class="pb-summary-value" id="pb-capacity-pct">0%</span>
+    </div>
+    <div class="pb-summary-item pb-stat-complete">
+      <span class="pb-summary-label">Complete</span>
+      <span class="pb-summary-value" id="pb-jobs-complete">0</span>
+    </div>
+    <div class="pb-summary-item pb-stat-pending">
+      <span class="pb-summary-label">Pending</span>
+      <span class="pb-summary-value" id="pb-jobs-pending">0</span>
+    </div>
+    <div class="pb-summary-item pb-stat-running">
+      <span class="pb-summary-label">Running</span>
+      <span class="pb-summary-value" id="pb-jobs-running">0</span>
+    </div>
+    <div class="pb-summary-item pb-stat-overdue">
+      <span class="pb-summary-label">Overdue</span>
+      <span class="pb-summary-value" id="pb-jobs-overdue">0</span>
+    </div>
+  </div>
+
+</div>

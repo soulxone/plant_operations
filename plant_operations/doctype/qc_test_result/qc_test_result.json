@@ -1,0 +1,59 @@
+{
+ "name": "QC Test Result",
+ "doctype": "DocType",
+ "module": "Plant Operations",
+ "istable": 1,
+ "editable_grid": 1,
+ "track_changes": 0,
+ "engine": "InnoDB",
+ "fields": [
+  {
+   "fieldname": "test_name",
+   "fieldtype": "Select",
+   "label": "Test Name",
+   "options": "Caliper\nECT\nBurst\nMoisture\nDimensions\nPrint Quality\nScore Depth\nGlue Bond\nWarp\nColor Match\nBarcode Scan\nCustom",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "specification",
+   "fieldtype": "Data",
+   "label": "Specification",
+   "in_list_view": 1,
+   "description": "Target value"
+  },
+  {
+   "fieldname": "tolerance",
+   "fieldtype": "Data",
+   "label": "Tolerance",
+   "description": "e.g. \u00b10.005"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "actual_value",
+   "fieldtype": "Data",
+   "label": "Actual Value",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "pass_fail",
+   "fieldtype": "Select",
+   "label": "Pass/Fail",
+   "options": "Pass\nFail\nN/A",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Data",
+   "label": "Notes"
+  }
+ ],
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "ASC"
+}

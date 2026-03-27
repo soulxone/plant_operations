@@ -1,0 +1,166 @@
+{
+  "actions": [],
+  "creation": "2026-03-27 00:00:00.000000",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "field_order": [
+    "sequence",
+    "job_card",
+    "sales_order",
+    "item_description",
+    "customer",
+    "column_break_1",
+    "planned_qty",
+    "planned_start",
+    "planned_end",
+    "section_break_time",
+    "estimated_run_min",
+    "estimated_setup_min",
+    "column_break_2",
+    "actual_start",
+    "actual_end",
+    "section_break_status",
+    "priority",
+    "status",
+    "column_break_3",
+    "notes"
+  ],
+  "fields": [
+    {
+      "fieldname": "sequence",
+      "fieldtype": "Int",
+      "in_list_view": 1,
+      "label": "Seq",
+      "reqd": 1,
+      "columns": 1
+    },
+    {
+      "fieldname": "job_card",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "Job Card",
+      "options": "Job Card",
+      "columns": 2
+    },
+    {
+      "fieldname": "sales_order",
+      "fieldtype": "Link",
+      "label": "Sales Order",
+      "options": "Sales Order"
+    },
+    {
+      "fieldname": "item_description",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Item Description",
+      "columns": 2
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Data",
+      "fetch_from": "sales_order.customer",
+      "in_list_view": 1,
+      "label": "Customer",
+      "read_only": 1,
+      "columns": 2
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "planned_qty",
+      "fieldtype": "Int",
+      "in_list_view": 1,
+      "label": "Planned Qty",
+      "columns": 1
+    },
+    {
+      "fieldname": "planned_start",
+      "fieldtype": "Datetime",
+      "label": "Planned Start"
+    },
+    {
+      "fieldname": "planned_end",
+      "fieldtype": "Datetime",
+      "label": "Planned End"
+    },
+    {
+      "fieldname": "section_break_time",
+      "fieldtype": "Section Break",
+      "label": "Time Estimates"
+    },
+    {
+      "fieldname": "estimated_run_min",
+      "fieldtype": "Float",
+      "description": "From routing step",
+      "label": "Est. Run (min)"
+    },
+    {
+      "fieldname": "estimated_setup_min",
+      "fieldtype": "Float",
+      "description": "From routing step",
+      "label": "Est. Setup (min)"
+    },
+    {
+      "fieldname": "column_break_2",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "actual_start",
+      "fieldtype": "Datetime",
+      "label": "Actual Start"
+    },
+    {
+      "fieldname": "actual_end",
+      "fieldtype": "Datetime",
+      "label": "Actual End"
+    },
+    {
+      "fieldname": "section_break_status",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "priority",
+      "fieldtype": "Select",
+      "default": "Normal",
+      "in_list_view": 1,
+      "label": "Priority",
+      "options": "Normal\nRush\nHot",
+      "columns": 1
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "default": "Pending",
+      "in_list_view": 1,
+      "label": "Status",
+      "options": "Pending\nRunning\nComplete\nSkipped",
+      "columns": 1
+    },
+    {
+      "fieldname": "column_break_3",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Data",
+      "label": "Notes"
+    }
+  ],
+  "index_web_pages_for_search": 0,
+  "istable": 1,
+  "links": [],
+  "modified": "2026-03-27 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Plant Operations",
+  "name": "Schedule Item",
+  "naming_rule": "Random",
+  "owner": "Administrator",
+  "permissions": [],
+  "sort_field": "sequence",
+  "sort_order": "ASC",
+  "states": [],
+  "track_changes": 0
+}

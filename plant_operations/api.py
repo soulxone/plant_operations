@@ -287,3 +287,160 @@ def get_google_api_key():
     if key:
         return key
     return frappe.conf.get("google_api_key", "")
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+#  MES — SHOP FLOOR MANUFACTURING EXECUTION
+# ═══════════════════════════════════════════════════════════════════════════
+
+@frappe.whitelist()
+def start_production(machine, job_card=None, sales_order=None, planned_qty=0):
+    """Start a production run on a machine."""
+    from plant_operations.plant_operations.mes import start_production as _start
+    return _start(machine, job_card, sales_order, planned_qty)
+
+
+@frappe.whitelist()
+def pause_production(entry):
+    """Pause a running production entry (creates downtime event)."""
+    from plant_operations.plant_operations.mes import pause_production as _pause
+    return _pause(entry)
+
+
+@frappe.whitelist()
+def resume_production(entry):
+    """Resume a paused production entry."""
+    from plant_operations.plant_operations.mes import resume_production as _resume
+    return _resume(entry)
+
+
+@frappe.whitelist()
+def stop_production(entry, good_qty=0, waste_qty=0, reject_qty=0):
+    """Stop production — finalize counts, calculate OEE."""
+    from plant_operations.plant_operations.mes import stop_production as _stop
+    return _stop(entry, good_qty, waste_qty, reject_qty)
+
+
+@frappe.whitelist()
+def get_machine_status(machine):
+    """Get current production status of a machine."""
+    from plant_operations.plant_operations.mes import get_machine_status as _status
+    return _status(machine)
+
+
+@frappe.whitelist()
+def get_plant_dashboard():
+    """Get status of ALL machines for plant overview."""
+    from plant_operations.plant_operations.mes import get_plant_dashboard as _dash
+    return _dash()
+
+
+@frappe.whitelist()
+def update_production_count(entry, good_qty=0, waste_qty=0):
+    """Live count update from shop floor terminal (no stop)."""
+    doc = frappe.get_doc("Production Entry", entry)
+    doc.good_qty = cint(good_qty)
+    doc.waste_qty = cint(waste_qty)
+    doc.save(ignore_permissions=True)
+    frappe.db.commit()
+    return {"status": "updated", "good_qty": doc.good_qty, "waste_qty": doc.waste_qty, "oee_pct": doc.oee_pct}
+
+
+@frappe.whitelist()
+def update_count(entry, field, value):
+    """Update a single count field from the shop floor numpad."""
+    from plant_operations.plant_operations.mes import update_count as _update
+    return _update(entry, field, cint(value))
+
+
+@frappe.whitelist()
+def log_downtime(entry, reason, notes=None):
+    """Log a downtime event from the shop floor terminal."""
+    from plant_operations.plant_operations.mes import log_downtime as _log
+    return _log(entry, reason, notes)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+#  QUALITY CONTROL
+# ═══════════════════════════════════════════════════════════════════════════
+
+@frappe.whitelist()
+def create_ncr_from_inspection(inspection_name):
+    """Create a Non-Conformance Report from a failed QC Inspection."""
+    from plant_operations.plant_operations.qc import create_ncr_from_inspection as _ncr
+    return _ncr(inspection_name)
+
+
+@frappe.whitelist()
+def get_qc_summary(date_from=None, date_to=None):
+    """Get QC summary stats for dashboard."""
+    from plant_operations.plant_operations.qc import get_qc_summary as _qc
+    return _qc(date_from, date_to)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+#  PRODUCTION SCHEDULING
+# ═══════════════════════════════════════════════════════════════════════════
+
+@frappe.whitelist()
+def get_schedule_board(date=None):
+    """Get all machines with schedule items for the Production Board."""
+    from plant_operations.plant_operations.scheduler import get_schedule_board as _board
+    return _board(date)
+
+
+@frappe.whitelist()
+def auto_schedule(date=None, strategy="earliest_due"):
+    """Auto-assign unscheduled Job Cards to machines."""
+    from plant_operations.plant_operations.scheduler import auto_schedule as _auto
+    return _auto(date, strategy)
+
+
+@frappe.whitelist()
+def get_capacity_summary(date_from=None, date_to=None):
+    """Get planned vs available capacity per machine."""
+    from plant_operations.plant_operations.scheduler import get_capacity_summary as _cap
+    return _cap(date_from, date_to)
+
+
+@frappe.whitelist()
+def reorder_schedule(schedule_name, new_order):
+    """Reorder schedule items (drag-and-drop from Production Board)."""
+    import json
+    order = json.loads(new_order) if isinstance(new_order, str) else new_order
+    sched = frappe.get_doc("Production Schedule", schedule_name)
+    for item in sched.schedule_items:
+        if item.name in order:
+            item.sequence = order[item.name]
+    sched.schedule_items.sort(key=lambda x: x.sequence)
+    sched.save(ignore_permissions=True)
+    frappe.db.commit()
+    return {"status": "reordered", "schedule": schedule_name}
+
+
+@frappe.whitelist()
+def auto_fill_schedule(schedule_name, machine, date=None):
+    """Auto-fill a Production Schedule with unscheduled Job Cards for its machine."""
+    from plant_operations.plant_operations.scheduler import auto_fill_for_schedule as _fill
+    return _fill(schedule_name, machine, date)
+
+
+@frappe.whitelist()
+def auto_schedule_jobs(date=None, strategy="earliest_due"):
+    """Auto-schedule unassigned Job Cards (alias for Production Board button)."""
+    from plant_operations.plant_operations.scheduler import auto_schedule as _auto
+    return _auto(date, strategy)
+
+
+@frappe.whitelist()
+def start_schedule_job(schedule_name, item_name):
+    """Start a schedule item — mark Running, create Production Entry."""
+    from plant_operations.plant_operations.scheduler import start_schedule_job as _start
+    return _start(schedule_name, item_name)
+
+
+@frappe.whitelist()
+def complete_schedule_job(schedule_name, item_name):
+    """Complete a schedule item — mark Complete, update schedule status."""
+    from plant_operations.plant_operations.scheduler import complete_schedule_job as _complete
+    return _complete(schedule_name, item_name)

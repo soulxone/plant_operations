@@ -1,0 +1,401 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Production Board — Professional Scheduling Board Styles
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+#production-board-root {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f8f9fa;
+    min-width: 1200px;
+    padding: 0;
+}
+
+/* ── Toolbar ── */
+.pb-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: #fff;
+    border-bottom: 1px solid #dee2e6;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.pb-toolbar-left,
+.pb-toolbar-center,
+.pb-toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pb-nav-btn {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pb-date-input {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 13px;
+    height: 30px;
+}
+
+.pb-date-display {
+    font-size: 15px;
+    font-weight: 600;
+    color: #343a40;
+    margin-left: 8px;
+}
+
+.pb-shift-select {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-size: 13px;
+    height: 30px;
+    background: #fff;
+}
+
+.pb-capacity-stat {
+    font-size: 12px;
+    color: #6c757d;
+    margin-left: 8px;
+}
+
+/* ── Board Wrapper ── */
+.pb-board-wrapper {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: calc(100vh - 180px);
+    background: #fff;
+}
+
+/* ── Timeline Header ── */
+.pb-timeline-header {
+    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: #f1f3f5;
+    border-bottom: 2px solid #adb5bd;
+    min-height: 36px;
+}
+
+.pb-machine-label-header {
+    min-width: 200px;
+    max-width: 200px;
+    padding: 8px 12px;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #495057;
+    border-right: 2px solid #adb5bd;
+    background: #e9ecef;
+}
+
+.pb-timeline-hours {
+    display: flex;
+    flex: 1;
+    position: relative;
+}
+
+.pb-hour-cell {
+    flex: 1;
+    min-width: 80px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #495057;
+    padding: 8px 0;
+    border-right: 1px solid #dee2e6;
+    position: relative;
+}
+
+.pb-hour-cell::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    height: 4px;
+    background: #adb5bd;
+}
+
+/* ── Machine Rows ── */
+.pb-machine-rows {
+    position: relative;
+}
+
+.pb-loading {
+    text-align: center;
+    padding: 60px 20px;
+    color: #868e96;
+    font-size: 14px;
+}
+
+.pb-machine-row {
+    display: flex;
+    min-height: 56px;
+    border-bottom: 1px solid #e9ecef;
+    transition: background 0.15s;
+}
+
+.pb-machine-row:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.pb-machine-row:hover {
+    background: #e8f4fd;
+}
+
+.pb-machine-label {
+    min-width: 200px;
+    max-width: 200px;
+    padding: 8px 12px;
+    border-right: 2px solid #dee2e6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pb-machine-name {
+    font-weight: 600;
+    font-size: 13px;
+    color: #212529;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pb-machine-dept {
+    font-size: 11px;
+    color: #868e96;
+}
+
+.pb-machine-status {
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+.pb-machine-status.running {
+    color: #2b8a3e;
+    font-weight: 600;
+}
+
+.pb-machine-status.idle {
+    color: #868e96;
+}
+
+/* ── Timeline Lane (right side of each row) ── */
+.pb-timeline-lane {
+    flex: 1;
+    position: relative;
+    min-height: 56px;
+}
+
+/* Grid lines for hours */
+.pb-grid-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #e9ecef;
+    z-index: 1;
+}
+
+/* ── Job Bars ── */
+.pb-job-bar {
+    position: absolute;
+    top: 6px;
+    height: 42px;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-size: 11px;
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: box-shadow 0.15s, transform 0.1s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.pb-job-bar:hover {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+    transform: translateY(-1px);
+    z-index: 20;
+}
+
+.pb-job-bar .pb-bar-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 600;
+    flex: 1;
+}
+
+.pb-job-bar .pb-bar-qty {
+    font-size: 10px;
+    opacity: 0.85;
+    margin-left: 4px;
+    flex-shrink: 0;
+}
+
+/* Setup portion (striped) */
+.pb-setup-stripe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.15),
+        rgba(255, 255, 255, 0.15) 4px,
+        transparent 4px,
+        transparent 8px
+    );
+    border-radius: 4px 0 0 4px;
+    z-index: 1;
+}
+
+/* Status colors */
+.pb-bar-pending {
+    background: linear-gradient(135deg, #fab005, #f59f00);
+}
+
+.pb-bar-running {
+    background: linear-gradient(135deg, #339af0, #1c7ed6);
+    animation: pb-pulse 2s ease-in-out infinite;
+}
+
+.pb-bar-complete {
+    background: linear-gradient(135deg, #51cf66, #37b24d);
+}
+
+.pb-bar-overdue {
+    background: linear-gradient(135deg, #ff6b6b, #e03131);
+}
+
+.pb-bar-hot {
+    background: linear-gradient(135deg, #be4bdb, #9c36b5);
+}
+
+.pb-bar-skipped {
+    background: linear-gradient(135deg, #868e96, #6c757d);
+    opacity: 0.6;
+}
+
+/* Pulse animation for running jobs */
+@keyframes pb-pulse {
+    0%, 100% { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); }
+    50% { box-shadow: 0 1px 8px rgba(51, 154, 240, 0.5); }
+}
+
+/* ── Now Line ── */
+.pb-now-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e03131;
+    z-index: 30;
+    pointer-events: none;
+}
+
+.pb-now-line::before {
+    content: "NOW";
+    position: absolute;
+    top: -18px;
+    left: -12px;
+    font-size: 9px;
+    font-weight: 700;
+    color: #e03131;
+    letter-spacing: 0.5px;
+}
+
+/* ── Summary Bar ── */
+.pb-summary-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 10px 16px;
+    background: #fff;
+    border-top: 2px solid #dee2e6;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    flex-wrap: wrap;
+}
+
+.pb-summary-item {
+    text-align: center;
+}
+
+.pb-summary-label {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #868e96;
+    letter-spacing: 0.5px;
+}
+
+.pb-summary-value {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: #343a40;
+}
+
+.pb-stat-complete .pb-summary-value { color: #37b24d; }
+.pb-stat-pending .pb-summary-value { color: #f59f00; }
+.pb-stat-running .pb-summary-value { color: #1c7ed6; }
+.pb-stat-overdue .pb-summary-value { color: #e03131; }
+
+/* ── Empty State ── */
+.pb-empty-lane {
+    color: #ced4da;
+    font-size: 12px;
+    font-style: italic;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+/* ── Print Styles ── */
+@media print {
+    .pb-toolbar { display: none !important; }
+    .pb-summary-bar { position: static; }
+    .pb-board-wrapper { max-height: none; overflow: visible; }
+    .pb-job-bar { box-shadow: none !important; animation: none !important; }
+    .pb-machine-row:hover { background: inherit !important; }
+    @page { size: landscape; margin: 0.5in; }
+}
+
+/* ── Responsive (large screens only) ── */
+@media screen and (max-width: 1199px) {
+    #production-board-root {
+        min-width: auto;
+    }
+    .pb-toolbar {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .pb-machine-label-header,
+    .pb-machine-label {
+        min-width: 140px;
+        max-width: 140px;
+    }
+}

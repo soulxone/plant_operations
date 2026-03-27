@@ -1,0 +1,326 @@
+{
+  "actions": [],
+  "autoname": "PE-.YYYY.-.#####",
+  "creation": "2026-03-27 00:00:00.000000",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "is_submittable": 1,
+  "module": "Plant Operations",
+  "name": "Production Entry",
+  "owner": "Administrator",
+  "modified": "2026-03-27 00:00:00.000000",
+  "modified_by": "Administrator",
+  "track_changes": 1,
+  "field_order": [
+    "entry_number",
+    "status",
+    "column_break_basic",
+    "machine",
+    "machine_name",
+    "job_card",
+    "sales_order",
+    "column_break_refs",
+    "operator",
+    "shift",
+    "section_run_data",
+    "start_time",
+    "end_time",
+    "column_break_run1",
+    "planned_qty",
+    "good_qty",
+    "waste_qty",
+    "reject_qty",
+    "column_break_run2",
+    "setup_time_min",
+    "run_time_min",
+    "total_time_min",
+    "speed_actual",
+    "section_oee",
+    "availability_pct",
+    "performance_pct",
+    "column_break_oee",
+    "quality_pct",
+    "oee_pct",
+    "section_cost",
+    "estimated_cost",
+    "actual_cost",
+    "column_break_cost",
+    "cost_variance",
+    "section_downtime",
+    "downtime_events",
+    "section_notes",
+    "notes"
+  ],
+  "fields": [
+    {
+      "fieldname": "entry_number",
+      "fieldtype": "Data",
+      "label": "Entry Number",
+      "read_only": 1
+    },
+    {
+      "default": "Running",
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Status",
+      "options": "Running\nPaused\nComplete\nCancelled"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "machine",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Machine",
+      "options": "Corrugated Machine",
+      "reqd": 1
+    },
+    {
+      "fetch_from": "machine.machine_name",
+      "fieldname": "machine_name",
+      "fieldtype": "Data",
+      "label": "Machine Name",
+      "read_only": 1
+    },
+    {
+      "fieldname": "job_card",
+      "fieldtype": "Link",
+      "label": "Job Card",
+      "options": "Job Card"
+    },
+    {
+      "fieldname": "sales_order",
+      "fieldtype": "Link",
+      "label": "Sales Order",
+      "options": "Sales Order"
+    },
+    {
+      "fieldname": "column_break_refs",
+      "fieldtype": "Column Break"
+    },
+    {
+      "default": "__user",
+      "fieldname": "operator",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Operator",
+      "options": "User"
+    },
+    {
+      "default": "Day",
+      "fieldname": "shift",
+      "fieldtype": "Select",
+      "in_standard_filter": 1,
+      "label": "Shift",
+      "options": "Day\nNight\nSwing"
+    },
+    {
+      "fieldname": "section_run_data",
+      "fieldtype": "Section Break",
+      "label": "Run Data"
+    },
+    {
+      "default": "Now",
+      "fieldname": "start_time",
+      "fieldtype": "Datetime",
+      "label": "Start Time"
+    },
+    {
+      "fieldname": "end_time",
+      "fieldtype": "Datetime",
+      "label": "End Time"
+    },
+    {
+      "fieldname": "column_break_run1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "planned_qty",
+      "fieldtype": "Int",
+      "label": "Planned Qty"
+    },
+    {
+      "default": "0",
+      "fieldname": "good_qty",
+      "fieldtype": "Int",
+      "label": "Good Qty"
+    },
+    {
+      "default": "0",
+      "fieldname": "waste_qty",
+      "fieldtype": "Int",
+      "label": "Waste Qty"
+    },
+    {
+      "default": "0",
+      "fieldname": "reject_qty",
+      "fieldtype": "Int",
+      "label": "Reject Qty"
+    },
+    {
+      "fieldname": "column_break_run2",
+      "fieldtype": "Column Break"
+    },
+    {
+      "default": "0",
+      "fieldname": "setup_time_min",
+      "fieldtype": "Float",
+      "label": "Setup Time (min)"
+    },
+    {
+      "default": "0",
+      "fieldname": "run_time_min",
+      "fieldtype": "Float",
+      "label": "Run Time (min)"
+    },
+    {
+      "fieldname": "total_time_min",
+      "fieldtype": "Float",
+      "label": "Total Time (min)",
+      "read_only": 1
+    },
+    {
+      "description": "Pieces per hour",
+      "fieldname": "speed_actual",
+      "fieldtype": "Float",
+      "label": "Actual Speed",
+      "read_only": 1
+    },
+    {
+      "collapsible": 1,
+      "fieldname": "section_oee",
+      "fieldtype": "Section Break",
+      "label": "OEE Metrics"
+    },
+    {
+      "fieldname": "availability_pct",
+      "fieldtype": "Float",
+      "label": "Availability %",
+      "read_only": 1
+    },
+    {
+      "fieldname": "performance_pct",
+      "fieldtype": "Float",
+      "label": "Performance %",
+      "read_only": 1
+    },
+    {
+      "fieldname": "column_break_oee",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "quality_pct",
+      "fieldtype": "Float",
+      "label": "Quality %",
+      "read_only": 1
+    },
+    {
+      "bold": 1,
+      "fieldname": "oee_pct",
+      "fieldtype": "Float",
+      "in_list_view": 1,
+      "label": "OEE %",
+      "read_only": 1
+    },
+    {
+      "collapsible": 1,
+      "fieldname": "section_cost",
+      "fieldtype": "Section Break",
+      "label": "Cost Variance"
+    },
+    {
+      "fieldname": "estimated_cost",
+      "fieldtype": "Currency",
+      "label": "Estimated Cost",
+      "read_only": 1
+    },
+    {
+      "fieldname": "actual_cost",
+      "fieldtype": "Currency",
+      "label": "Actual Cost",
+      "read_only": 1
+    },
+    {
+      "fieldname": "column_break_cost",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "cost_variance",
+      "fieldtype": "Currency",
+      "label": "Cost Variance",
+      "read_only": 1
+    },
+    {
+      "fieldname": "section_downtime",
+      "fieldtype": "Section Break",
+      "label": "Downtime Events"
+    },
+    {
+      "fieldname": "downtime_events",
+      "fieldtype": "Table",
+      "label": "Downtime Events",
+      "options": "Production Downtime"
+    },
+    {
+      "fieldname": "section_notes",
+      "fieldtype": "Section Break",
+      "label": "Notes"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Text",
+      "label": "Notes"
+    }
+  ],
+  "links": [],
+  "permissions": [
+    {
+      "amend": 1,
+      "cancel": 1,
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "submit": 1,
+      "write": 1
+    },
+    {
+      "create": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "Manufacturing Manager",
+      "share": 1,
+      "submit": 1,
+      "write": 1
+    },
+    {
+      "create": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "Manufacturing User",
+      "write": 1
+    }
+  ],
+  "sort_field": "creation",
+  "sort_order": "DESC",
+  "states": [],
+  "title_field": "machine_name"
+}

@@ -1,0 +1,19 @@
+{
+  "content": null,
+  "creation": "2026-03-27 00:00:00.000000",
+  "doctype": "Page",
+  "icon": "fa fa-industry",
+  "modified": "2026-03-27 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Plant Operations",
+  "name": "shop-floor-terminal",
+  "owner": "Administrator",
+  "page_name": "shop-floor-terminal",
+  "roles": [
+    {"role": "System Manager"},
+    {"role": "Manufacturing Manager"},
+    {"role": "Manufacturing User"}
+  ],
+  "standard": "Yes",
+  "title": "Shop Floor Terminal"
+}

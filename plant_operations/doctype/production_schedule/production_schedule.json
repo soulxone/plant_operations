@@ -1,0 +1,199 @@
+{
+  "actions": [],
+  "allow_rename": 0,
+  "autoname": "PS-.YYYY.-.#####",
+  "creation": "2026-03-27 00:00:00.000000",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "field_order": [
+    "schedule_name",
+    "machine",
+    "machine_name",
+    "column_break_main",
+    "schedule_date",
+    "shift",
+    "status",
+    "section_break_jobs",
+    "schedule_items",
+    "section_break_summary",
+    "total_planned_hours",
+    "total_actual_hours",
+    "total_jobs",
+    "column_break_summary",
+    "utilization_pct",
+    "shift_hours",
+    "section_break_notes",
+    "notes"
+  ],
+  "fields": [
+    {
+      "fieldname": "schedule_name",
+      "fieldtype": "Data",
+      "label": "Schedule Name",
+      "read_only": 1,
+      "description": "Auto-set from document name"
+    },
+    {
+      "fieldname": "machine",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "Machine",
+      "options": "Corrugated Machine",
+      "reqd": 1
+    },
+    {
+      "fieldname": "machine_name",
+      "fieldtype": "Data",
+      "fetch_from": "machine.machine_name",
+      "in_list_view": 1,
+      "label": "Machine Name",
+      "read_only": 1
+    },
+    {
+      "fieldname": "column_break_main",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "schedule_date",
+      "fieldtype": "Date",
+      "default": "Today",
+      "in_list_view": 1,
+      "label": "Schedule Date",
+      "reqd": 1
+    },
+    {
+      "fieldname": "shift",
+      "fieldtype": "Select",
+      "default": "All",
+      "label": "Shift",
+      "options": "Day\nNight\nSwing\nAll"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "default": "Draft",
+      "in_list_view": 1,
+      "label": "Status",
+      "options": "Draft\nPublished\nIn Progress\nComplete"
+    },
+    {
+      "fieldname": "section_break_jobs",
+      "fieldtype": "Section Break",
+      "label": "Scheduled Jobs"
+    },
+    {
+      "fieldname": "schedule_items",
+      "fieldtype": "Table",
+      "label": "Schedule Items",
+      "options": "Schedule Item"
+    },
+    {
+      "fieldname": "section_break_summary",
+      "fieldtype": "Section Break",
+      "collapsible": 1,
+      "label": "Summary"
+    },
+    {
+      "fieldname": "total_planned_hours",
+      "fieldtype": "Float",
+      "label": "Total Planned Hours",
+      "read_only": 1,
+      "precision": 2
+    },
+    {
+      "fieldname": "total_actual_hours",
+      "fieldtype": "Float",
+      "label": "Total Actual Hours",
+      "read_only": 1,
+      "precision": 2
+    },
+    {
+      "fieldname": "total_jobs",
+      "fieldtype": "Int",
+      "label": "Total Jobs",
+      "read_only": 1
+    },
+    {
+      "fieldname": "column_break_summary",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "utilization_pct",
+      "fieldtype": "Float",
+      "description": "Planned hours / shift hours x 100",
+      "label": "Utilization %",
+      "read_only": 1,
+      "precision": 1
+    },
+    {
+      "fieldname": "shift_hours",
+      "fieldtype": "Float",
+      "default": "8",
+      "description": "Available hours per shift",
+      "label": "Shift Hours"
+    },
+    {
+      "fieldname": "section_break_notes",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Text",
+      "label": "Notes"
+    }
+  ],
+  "index_web_pages_for_search": 0,
+  "is_submittable": 1,
+  "links": [],
+  "modified": "2026-03-27 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Plant Operations",
+  "name": "Production Schedule",
+  "naming_rule": "Expression (old style)",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "cancel": 1,
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "submit": 1,
+      "write": 1
+    },
+    {
+      "cancel": 1,
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "Manufacturing Manager",
+      "share": 1,
+      "submit": 1,
+      "write": 1
+    },
+    {
+      "create": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "Manufacturing User",
+      "share": 0
+    }
+  ],
+  "sort_field": "schedule_date",
+  "sort_order": "DESC",
+  "states": [],
+  "track_changes": 1
+}

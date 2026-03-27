@@ -1,0 +1,215 @@
+{
+ "name": "QC Inspection",
+ "doctype": "DocType",
+ "module": "Plant Operations",
+ "autoname": "QC-.YYYY.-.#####",
+ "is_submittable": 1,
+ "track_changes": 1,
+ "engine": "InnoDB",
+ "fields": [
+  {
+   "fieldname": "inspection_number",
+   "fieldtype": "Data",
+   "label": "Inspection Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "inspection_type",
+   "fieldtype": "Select",
+   "label": "Inspection Type",
+   "options": "First Piece\nIn-Process\nFinal\nReceiving\nCustomer Complaint",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nPassed\nFailed\nOn Hold",
+   "default": "Pending",
+   "in_list_view": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "production_entry",
+   "fieldtype": "Link",
+   "label": "Production Entry",
+   "options": "Production Entry"
+  },
+  {
+   "fieldname": "job_card",
+   "fieldtype": "Link",
+   "label": "Job Card",
+   "options": "Job Card"
+  },
+  {
+   "fieldname": "sales_order",
+   "fieldtype": "Link",
+   "label": "Sales Order",
+   "options": "Sales Order"
+  },
+  {
+   "fieldname": "machine",
+   "fieldtype": "Link",
+   "label": "Machine",
+   "options": "Corrugated Machine",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "inspector",
+   "fieldtype": "Link",
+   "label": "Inspector",
+   "options": "User",
+   "default": "__user"
+  },
+  {
+   "fieldname": "inspection_date",
+   "fieldtype": "Datetime",
+   "label": "Inspection Date",
+   "default": "Now"
+  },
+  {
+   "fieldname": "section_item_spec",
+   "fieldtype": "Section Break",
+   "label": "Item Specification"
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item Code",
+   "options": "Item"
+  },
+  {
+   "fieldname": "box_style",
+   "fieldtype": "Data",
+   "label": "Box Style"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "length_inside",
+   "fieldtype": "Float",
+   "label": "Length (Inside)",
+   "precision": "4"
+  },
+  {
+   "fieldname": "width_inside",
+   "fieldtype": "Float",
+   "label": "Width (Inside)",
+   "precision": "4"
+  },
+  {
+   "fieldname": "depth_inside",
+   "fieldtype": "Float",
+   "label": "Depth (Inside)",
+   "precision": "4"
+  },
+  {
+   "fieldname": "section_test_results",
+   "fieldtype": "Section Break",
+   "label": "Test Results"
+  },
+  {
+   "fieldname": "test_results",
+   "fieldtype": "Table",
+   "label": "Test Results",
+   "options": "QC Test Result"
+  },
+  {
+   "fieldname": "section_dimension_checks",
+   "fieldtype": "Section Break",
+   "label": "Dimensional Checks"
+  },
+  {
+   "fieldname": "dimension_checks",
+   "fieldtype": "Table",
+   "label": "Dimension Checks",
+   "options": "QC Dimension Check"
+  },
+  {
+   "fieldname": "section_result",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "fieldname": "overall_result",
+   "fieldtype": "Select",
+   "label": "Overall Result",
+   "options": "\nPass\nFail\nConditional",
+   "read_only": 1,
+   "in_list_view": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "disposition",
+   "fieldtype": "Select",
+   "label": "Disposition",
+   "options": "\nAccept\nRework\nScrap\nHold\nReturn to Vendor"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "photos",
+   "fieldtype": "Attach",
+   "label": "Photos"
+  },
+  {
+   "fieldname": "corrective_action",
+   "fieldtype": "Text",
+   "label": "Corrective Action"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1
+  },
+  {
+   "role": "Quality Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1
+  },
+  {
+   "role": "Manufacturing User",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 0,
+   "cancel": 0,
+   "print": 1,
+   "export": 1,
+   "report": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

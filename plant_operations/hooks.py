@@ -27,6 +27,9 @@ doc_events = {
     "Delivery Note": {
         "on_submit": "plant_operations.plant_operations.hooks_impl.on_delivery_note_submit",
     },
+    "Job Card": {
+        "on_update": "plant_operations.plant_operations.hooks_impl.on_job_card_update",
+    },
 }
 
 # ── Website ───────────────────────────────────────────────────────────────

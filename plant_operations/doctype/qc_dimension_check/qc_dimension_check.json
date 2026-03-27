@@ -1,0 +1,66 @@
+{
+ "name": "QC Dimension Check",
+ "doctype": "DocType",
+ "module": "Plant Operations",
+ "istable": 1,
+ "editable_grid": 1,
+ "track_changes": 0,
+ "engine": "InnoDB",
+ "fields": [
+  {
+   "fieldname": "measurement",
+   "fieldtype": "Select",
+   "label": "Measurement",
+   "options": "Length\nWidth\nDepth\nScore-to-Score\nFlap Height\nSlot Width\nGlue Tab\nOverall Blank L\nOverall Blank W",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "target_value",
+   "fieldtype": "Float",
+   "label": "Target Value",
+   "reqd": 1,
+   "in_list_view": 1,
+   "precision": "4"
+  },
+  {
+   "fieldname": "tolerance",
+   "fieldtype": "Float",
+   "label": "Tolerance (\u00b1 inches)",
+   "default": "0.0625",
+   "description": "\u00b1 inches",
+   "precision": "4"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "actual_value",
+   "fieldtype": "Float",
+   "label": "Actual Value",
+   "reqd": 1,
+   "in_list_view": 1,
+   "precision": "4"
+  },
+  {
+   "fieldname": "deviation",
+   "fieldtype": "Float",
+   "label": "Deviation",
+   "read_only": 1,
+   "in_list_view": 1,
+   "precision": "4"
+  },
+  {
+   "fieldname": "pass_fail",
+   "fieldtype": "Select",
+   "label": "Pass/Fail",
+   "options": "\nPass\nFail",
+   "read_only": 1,
+   "in_list_view": 1
+  }
+ ],
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "ASC"
+}

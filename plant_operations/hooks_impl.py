@@ -41,6 +41,25 @@ def on_sales_order_submit(doc, method):
         frappe.log_error(f"Plant Operations: Failed to create pallets for {doc.name}: {e}")
 
 
+def on_job_card_update(doc, method):
+    """When a Job Card is updated, sync status to any linked Production Entry."""
+    try:
+        entries = frappe.get_all("Production Entry",
+            filters={"job_card": doc.name, "docstatus": 0},
+            pluck="name",
+        )
+        if doc.status == "Completed":
+            for entry_name in entries:
+                entry = frappe.get_doc("Production Entry", entry_name)
+                if entry.status in ("Running", "Paused"):
+                    entry.status = "Complete"
+                    entry.end_time = frappe.utils.now_datetime()
+                    entry.save(ignore_permissions=True)
+            frappe.db.commit()
+    except Exception as e:
+        frappe.log_error(f"Plant Operations: Job Card sync failed for {doc.name}: {e}")
+
+
 def on_delivery_note_submit(doc, method):
     """When a Delivery Note is submitted, update linked Load Tag status."""
     try:

@@ -1,0 +1,522 @@
+<div id="sft-app">
+  <!-- ===== TOP BAR ===== -->
+  <div class="sft-topbar">
+    <div class="sft-topbar-left">
+      <span class="sft-logo">MES</span>
+      <select id="sft-machine-select" class="sft-select">
+        <option value="">-- Select Machine --</option>
+      </select>
+      <span id="sft-machine-name" class="sft-machine-name"></span>
+    </div>
+    <div class="sft-topbar-right">
+      <div class="sft-job-info">
+        <span id="sft-job-label" class="sft-info-label">Job:</span>
+        <span id="sft-job-value" class="sft-info-value">--</span>
+      </div>
+      <div class="sft-job-info">
+        <span class="sft-info-label">Order:</span>
+        <span id="sft-order-value" class="sft-info-value">--</span>
+      </div>
+      <div class="sft-job-info">
+        <span class="sft-info-label">Operator:</span>
+        <span id="sft-operator-value" class="sft-info-value">--</span>
+      </div>
+      <div id="sft-timer" class="sft-timer">00:00:00</div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="sft-main">
+    <!-- LEFT: Control Buttons -->
+    <div class="sft-controls">
+      <button id="sft-btn-start" class="sft-btn sft-btn-start" disabled>
+        <i class="fa fa-play"></i> START
+      </button>
+      <button id="sft-btn-pause" class="sft-btn sft-btn-pause" disabled>
+        <i class="fa fa-pause"></i> PAUSE
+      </button>
+      <button id="sft-btn-resume" class="sft-btn sft-btn-resume" disabled style="display:none">
+        <i class="fa fa-play"></i> RESUME
+      </button>
+      <button id="sft-btn-stop" class="sft-btn sft-btn-stop" disabled>
+        <i class="fa fa-stop"></i> STOP
+      </button>
+      <div class="sft-status-badge" id="sft-status-badge">IDLE</div>
+    </div>
+
+    <!-- CENTER: Big Number Displays -->
+    <div class="sft-displays">
+      <div class="sft-display-row">
+        <div class="sft-display-card sft-good">
+          <div class="sft-display-label">GOOD COUNT</div>
+          <div class="sft-display-number" id="sft-good-count">0</div>
+          <div class="sft-display-sub" id="sft-planned-count">/ 0 planned</div>
+        </div>
+        <div class="sft-display-card sft-waste">
+          <div class="sft-display-label">WASTE</div>
+          <div class="sft-display-number" id="sft-waste-count">0</div>
+          <div class="sft-display-sub" id="sft-reject-count">Reject: 0</div>
+        </div>
+      </div>
+      <div class="sft-display-row">
+        <div class="sft-display-card sft-speed">
+          <div class="sft-display-label">SPEED (pcs/hr)</div>
+          <div class="sft-display-number" id="sft-speed-value">0</div>
+          <div class="sft-display-sub" id="sft-rated-speed">Rated: --</div>
+        </div>
+        <div class="sft-display-card sft-oee-card">
+          <div class="sft-display-label">OEE</div>
+          <div class="sft-oee-gauge-wrap">
+            <svg class="sft-oee-gauge" viewBox="0 0 120 120">
+              <circle class="sft-gauge-bg" cx="60" cy="60" r="52" />
+              <circle class="sft-gauge-fill" id="sft-gauge-fill" cx="60" cy="60" r="52" />
+              <text class="sft-gauge-text" id="sft-gauge-text" x="60" y="65" text-anchor="middle">0%</text>
+            </svg>
+          </div>
+          <div class="sft-oee-breakdown">
+            <span>A: <b id="sft-avail-pct">0</b>%</span>
+            <span>P: <b id="sft-perf-pct">0</b>%</span>
+            <span>Q: <b id="sft-qual-pct">0</b>%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Numpad -->
+    <div class="sft-numpad-section">
+      <div class="sft-numpad-label">Enter Count</div>
+      <div class="sft-numpad-target">
+        <select id="sft-count-target" class="sft-select sft-select-sm">
+          <option value="good">Good Qty</option>
+          <option value="waste">Waste Qty</option>
+          <option value="reject">Reject Qty</option>
+        </select>
+      </div>
+      <div class="sft-numpad-display" id="sft-numpad-display">0</div>
+      <div class="sft-numpad-grid">
+        <button class="sft-numpad-btn" data-val="7">7</button>
+        <button class="sft-numpad-btn" data-val="8">8</button>
+        <button class="sft-numpad-btn" data-val="9">9</button>
+        <button class="sft-numpad-btn" data-val="4">4</button>
+        <button class="sft-numpad-btn" data-val="5">5</button>
+        <button class="sft-numpad-btn" data-val="6">6</button>
+        <button class="sft-numpad-btn" data-val="1">1</button>
+        <button class="sft-numpad-btn" data-val="2">2</button>
+        <button class="sft-numpad-btn" data-val="3">3</button>
+        <button class="sft-numpad-btn sft-numpad-clear" data-val="C">C</button>
+        <button class="sft-numpad-btn" data-val="0">0</button>
+        <button class="sft-numpad-btn sft-numpad-enter" data-val="Enter">&#9166;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BOTTOM: Downtime Reason Buttons ===== -->
+  <div class="sft-downtime-bar">
+    <span class="sft-downtime-title">DOWNTIME:</span>
+    <button class="sft-dt-btn sft-dt-mechanical" data-reason="Mechanical">
+      <i class="fa fa-wrench"></i> Mechanical
+    </button>
+    <button class="sft-dt-btn sft-dt-electrical" data-reason="Electrical">
+      <i class="fa fa-bolt"></i> Electrical
+    </button>
+    <button class="sft-dt-btn sft-dt-material" data-reason="Material">
+      <i class="fa fa-cubes"></i> Material
+    </button>
+    <button class="sft-dt-btn sft-dt-setup" data-reason="Setup">
+      <i class="fa fa-cogs"></i> Setup
+    </button>
+    <button class="sft-dt-btn sft-dt-changeover" data-reason="Changeover">
+      <i class="fa fa-exchange"></i> Changeover
+    </button>
+    <button class="sft-dt-btn sft-dt-maintenance" data-reason="Planned Maintenance">
+      <i class="fa fa-calendar-check-o"></i> PM
+    </button>
+    <button class="sft-dt-btn sft-dt-break" data-reason="Break">
+      <i class="fa fa-coffee"></i> Break
+    </button>
+    <button class="sft-dt-btn sft-dt-other" data-reason="Other">
+      <i class="fa fa-question-circle"></i> Other
+    </button>
+  </div>
+</div>
+
+<style>
+/* ===== RESET & DARK THEME ===== */
+#sft-app {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #1a1a1a;
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    -webkit-user-select: none;
+}
+#sft-app * { box-sizing: border-box; }
+
+/* ===== TOP BAR ===== */
+.sft-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #111;
+    padding: 10px 20px;
+    border-bottom: 2px solid #333;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.sft-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.sft-logo {
+    font-size: 28px;
+    font-weight: 900;
+    color: #00e676;
+    letter-spacing: 2px;
+}
+.sft-select {
+    background: #2a2a2a;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 16px;
+    outline: none;
+    cursor: pointer;
+}
+.sft-select:focus { border-color: #00e676; }
+.sft-select-sm {
+    padding: 6px 10px;
+    font-size: 14px;
+}
+.sft-machine-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #90caf9;
+}
+.sft-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.sft-job-info {
+    display: flex;
+    gap: 4px;
+    font-size: 14px;
+}
+.sft-info-label { color: #888; }
+.sft-info-value { color: #fff; font-weight: 600; }
+.sft-timer {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    color: #00e676;
+    background: #0a0a0a;
+    padding: 6px 16px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    min-width: 160px;
+    text-align: center;
+}
+
+/* ===== MAIN LAYOUT ===== */
+.sft-main {
+    display: flex;
+    flex: 1;
+    padding: 16px;
+    gap: 16px;
+    min-height: 0;
+}
+
+/* ===== LEFT: CONTROLS ===== */
+.sft-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 180px;
+    max-width: 200px;
+}
+.sft-btn {
+    height: 80px;
+    border: none;
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.15s;
+    color: #fff;
+}
+.sft-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+.sft-btn:not(:disabled):active {
+    transform: scale(0.96);
+}
+.sft-btn-start { background: #2e7d32; }
+.sft-btn-start:not(:disabled):hover { background: #388e3c; }
+.sft-btn-pause { background: #f57f17; }
+.sft-btn-pause:not(:disabled):hover { background: #f9a825; }
+.sft-btn-resume { background: #1565c0; }
+.sft-btn-resume:not(:disabled):hover { background: #1976d2; }
+.sft-btn-stop { background: #c62828; }
+.sft-btn-stop:not(:disabled):hover { background: #d32f2f; }
+
+.sft-status-badge {
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: #333;
+    color: #888;
+    margin-top: auto;
+}
+.sft-status-badge.running { background: #1b5e20; color: #69f0ae; }
+.sft-status-badge.paused { background: #e65100; color: #ffcc80; }
+.sft-status-badge.complete { background: #0d47a1; color: #90caf9; }
+
+/* ===== CENTER: DISPLAYS ===== */
+.sft-displays {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.sft-display-row {
+    display: flex;
+    gap: 16px;
+    flex: 1;
+}
+.sft-display-card {
+    flex: 1;
+    background: #222;
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #333;
+    min-height: 120px;
+}
+.sft-display-label {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+.sft-display-number {
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1.1;
+    font-family: 'Courier New', monospace;
+}
+.sft-display-sub {
+    font-size: 13px;
+    color: #666;
+    margin-top: 4px;
+}
+.sft-good .sft-display-number { color: #69f0ae; }
+.sft-waste .sft-display-number { color: #ef5350; }
+.sft-speed .sft-display-number { color: #42a5f5; }
+
+/* ===== OEE GAUGE ===== */
+.sft-oee-card {
+    border-color: #444;
+}
+.sft-oee-gauge-wrap {
+    width: 110px;
+    height: 110px;
+    margin: 4px 0;
+}
+.sft-oee-gauge {
+    width: 100%;
+    height: 100%;
+}
+.sft-gauge-bg {
+    fill: none;
+    stroke: #333;
+    stroke-width: 10;
+}
+.sft-gauge-fill {
+    fill: none;
+    stroke: #ef5350;
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-dasharray: 326.73;
+    stroke-dashoffset: 326.73;
+    transform: rotate(-90deg);
+    transform-origin: 60px 60px;
+    transition: stroke-dashoffset 0.8s ease, stroke 0.4s;
+}
+.sft-gauge-text {
+    fill: #fff;
+    font-size: 24px;
+    font-weight: 800;
+    font-family: 'Courier New', monospace;
+}
+.sft-oee-breakdown {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: #999;
+}
+.sft-oee-breakdown b { color: #ddd; }
+
+/* ===== RIGHT: NUMPAD ===== */
+.sft-numpad-section {
+    min-width: 220px;
+    max-width: 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.sft-numpad-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+.sft-numpad-target {
+    text-align: center;
+}
+.sft-numpad-display {
+    background: #0a0a0a;
+    border: 2px solid #444;
+    border-radius: 10px;
+    font-size: 42px;
+    font-weight: 800;
+    font-family: 'Courier New', monospace;
+    color: #00e676;
+    text-align: right;
+    padding: 8px 16px;
+    min-height: 60px;
+    line-height: 1.2;
+    overflow: hidden;
+}
+.sft-numpad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+.sft-numpad-btn {
+    height: 60px;
+    border: none;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: 700;
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+.sft-numpad-btn:hover { background: #444; }
+.sft-numpad-btn:active { background: #555; transform: scale(0.95); }
+.sft-numpad-clear { background: #b71c1c; }
+.sft-numpad-clear:hover { background: #c62828; }
+.sft-numpad-enter { background: #2e7d32; }
+.sft-numpad-enter:hover { background: #388e3c; }
+
+/* ===== BOTTOM: DOWNTIME BAR ===== */
+.sft-downtime-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: #111;
+    border-top: 2px solid #333;
+    flex-wrap: wrap;
+}
+.sft-downtime-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #888;
+    letter-spacing: 1px;
+    margin-right: 8px;
+}
+.sft-dt-btn {
+    height: 48px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 14px;
+    color: #fff;
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+.sft-dt-btn:active { transform: scale(0.95); }
+.sft-dt-mechanical { background: #d84315; }
+.sft-dt-electrical { background: #f9a825; color: #222; }
+.sft-dt-material { background: #6a1b9a; }
+.sft-dt-setup { background: #00838f; }
+.sft-dt-changeover { background: #37474f; }
+.sft-dt-maintenance { background: #1565c0; }
+.sft-dt-break { background: #4e342e; }
+.sft-dt-other { background: #555; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .sft-main {
+        flex-direction: column;
+    }
+    .sft-controls {
+        flex-direction: row;
+        max-width: 100%;
+        min-width: auto;
+    }
+    .sft-controls .sft-btn {
+        height: 60px;
+        flex: 1;
+    }
+    .sft-numpad-section {
+        max-width: 100%;
+        min-width: auto;
+    }
+    .sft-numpad-grid {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+    .sft-display-number {
+        font-size: 42px;
+    }
+}
+@media (max-width: 600px) {
+    .sft-display-number {
+        font-size: 32px;
+    }
+    .sft-timer {
+        font-size: 24px;
+        min-width: 120px;
+    }
+    .sft-topbar {
+        padding: 8px 12px;
+    }
+    .sft-downtime-bar {
+        justify-content: center;
+    }
+    .sft-dt-btn {
+        font-size: 12px;
+        height: 40px;
+        padding: 0 10px;
+    }
+}
+</style>
