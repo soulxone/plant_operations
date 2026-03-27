@@ -1,0 +1,82 @@
+<div class="analytics-container">
+    <!-- Tab Navigation -->
+    <div class="analytics-tabs">
+        <button class="analytics-tab active" data-tab="oee">
+            <i class="fa fa-tachometer"></i> OEE
+        </button>
+        <button class="analytics-tab" data-tab="profitability">
+            <i class="fa fa-dollar"></i> Profitability
+        </button>
+        <button class="analytics-tab" data-tab="waste">
+            <i class="fa fa-trash-o"></i> Waste
+        </button>
+        <button class="analytics-tab" data-tab="quality">
+            <i class="fa fa-check-circle"></i> Quality
+        </button>
+    </div>
+
+    <!-- Filters Row -->
+    <div class="analytics-filters">
+        <div class="filter-group">
+            <label>Date Range</label>
+            <div class="date-range-btns">
+                <button class="range-btn" data-days="7">7D</button>
+                <button class="range-btn active" data-days="30">30D</button>
+                <button class="range-btn" data-days="90">90D</button>
+                <button class="range-btn" data-days="365">1Y</button>
+            </div>
+        </div>
+        <div class="filter-group">
+            <label>From</label>
+            <input type="date" class="form-control filter-date-from" />
+        </div>
+        <div class="filter-group">
+            <label>To</label>
+            <input type="date" class="form-control filter-date-to" />
+        </div>
+        <div class="filter-group filter-machine-group" style="display:none;">
+            <label>Machine</label>
+            <select class="form-control filter-machine">
+                <option value="">All Machines</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <button class="btn btn-primary btn-sm btn-refresh">
+                <i class="fa fa-refresh"></i> Refresh
+            </button>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="analytics-loading" style="display:none;">
+        <div class="loading-spinner"></div>
+        <p>Loading analytics data...</p>
+    </div>
+
+    <!-- KPI Cards Row -->
+    <div class="kpi-cards-row" id="kpi-cards"></div>
+
+    <!-- Charts Grid -->
+    <div class="charts-grid">
+        <div class="chart-card chart-card-wide" id="chart-primary-wrap">
+            <div class="chart-card-header" id="chart-primary-title">Trend</div>
+            <div class="chart-card-body" id="chart-primary"></div>
+        </div>
+        <div class="chart-card" id="chart-secondary-wrap">
+            <div class="chart-card-header" id="chart-secondary-title">Comparison</div>
+            <div class="chart-card-body" id="chart-secondary"></div>
+        </div>
+        <div class="chart-card" id="chart-tertiary-wrap">
+            <div class="chart-card-header" id="chart-tertiary-title">Breakdown</div>
+            <div class="chart-card-body" id="chart-tertiary"></div>
+        </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="analytics-table-wrap" id="analytics-table-wrap" style="display:none;">
+        <div class="chart-card chart-card-full">
+            <div class="chart-card-header" id="table-title">Details</div>
+            <div class="chart-card-body" id="analytics-table"></div>
+        </div>
+    </div>
+</div>

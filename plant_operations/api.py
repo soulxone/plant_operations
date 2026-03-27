@@ -444,3 +444,31 @@ def complete_schedule_job(schedule_name, item_name):
     """Complete a schedule item — mark Complete, update schedule status."""
     from plant_operations.plant_operations.scheduler import complete_schedule_job as _complete
     return _complete(schedule_name, item_name)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+#  ANALYTICS DASHBOARDS
+# ═══════════════════════════════════════════════════════════════════════════
+
+@frappe.whitelist()
+def get_oee_dashboard(date_from=None, date_to=None, machine=None):
+    from plant_operations.plant_operations.analytics import get_oee_dashboard as _oee
+    return _oee(date_from, date_to, machine)
+
+
+@frappe.whitelist()
+def get_profitability_dashboard(date_from=None, date_to=None):
+    from plant_operations.plant_operations.analytics import get_profitability_dashboard as _prof
+    return _prof(date_from, date_to)
+
+
+@frappe.whitelist()
+def get_waste_dashboard(date_from=None, date_to=None, machine=None):
+    from plant_operations.plant_operations.analytics import get_waste_dashboard as _waste
+    return _waste(date_from, date_to, machine)
+
+
+@frappe.whitelist()
+def get_quality_dashboard(date_from=None, date_to=None):
+    from plant_operations.plant_operations.analytics import get_quality_dashboard as _qual
+    return _qual(date_from, date_to)
