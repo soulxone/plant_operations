@@ -1,0 +1,71 @@
+{
+ "actions": [],
+ "creation": "2026-03-27 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "istable": 1,
+ "field_order": [
+  "pallet",
+  "pallet_id",
+  "customer",
+  "item_name",
+  "quantity",
+  "weight_lbs"
+ ],
+ "fields": [
+  {
+   "fieldname": "pallet",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Pallet",
+   "options": "Pallet",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "pallet.pallet_id",
+   "fieldname": "pallet_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Pallet ID",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "pallet.customer",
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "label": "Customer",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "pallet.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "pallet.quantity",
+   "fieldname": "quantity",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Quantity",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "pallet.weight_lbs",
+   "fieldname": "weight_lbs",
+   "fieldtype": "Float",
+   "label": "Weight (lbs)",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-03-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Plant Operations",
+ "name": "Load Pallet",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

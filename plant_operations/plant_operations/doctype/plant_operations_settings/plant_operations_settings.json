@@ -1,0 +1,91 @@
+{
+ "actions": [],
+ "creation": "2026-03-27 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "zebra_printer_ip",
+  "zebra_printer_port",
+  "default_warehouse",
+  "default_pallet_max_weight",
+  "default_pallet_height_max",
+  "google_api_key",
+  "gps_update_interval_sec",
+  "plant_address",
+  "company"
+ ],
+ "fields": [
+  {
+   "fieldname": "zebra_printer_ip",
+   "fieldtype": "Data",
+   "label": "Zebra Printer IP"
+  },
+  {
+   "default": "9100",
+   "fieldname": "zebra_printer_port",
+   "fieldtype": "Int",
+   "label": "Zebra Printer Port"
+  },
+  {
+   "fieldname": "default_warehouse",
+   "fieldtype": "Link",
+   "label": "Default Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "default": "2500",
+   "fieldname": "default_pallet_max_weight",
+   "fieldtype": "Float",
+   "label": "Default Pallet Max Weight (lbs)"
+  },
+  {
+   "default": "48",
+   "fieldname": "default_pallet_height_max",
+   "fieldtype": "Float",
+   "label": "Default Pallet Height Max (in)"
+  },
+  {
+   "fieldname": "google_api_key",
+   "fieldtype": "Data",
+   "label": "Google API Key"
+  },
+  {
+   "default": "30",
+   "fieldname": "gps_update_interval_sec",
+   "fieldtype": "Int",
+   "label": "GPS Update Interval (sec)"
+  },
+  {
+   "fieldname": "plant_address",
+   "fieldtype": "Small Text",
+   "label": "Plant Address"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-03-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Plant Operations",
+ "name": "Plant Operations Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

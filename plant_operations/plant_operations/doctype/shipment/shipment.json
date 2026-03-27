@@ -1,0 +1,213 @@
+{
+ "actions": [],
+ "autoname": "SHP-.YYYY.-.#####",
+ "creation": "2026-03-27 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "is_submittable": 1,
+ "track_changes": 1,
+ "field_order": [
+  "shipment_number",
+  "status",
+  "ship_date",
+  "ship_method",
+  "customer",
+  "sales_order",
+  "delivery_note",
+  "col_break",
+  "carrier",
+  "carrier_tracking",
+  "freight_cost_estimated",
+  "freight_cost_actual",
+  "loads_section",
+  "shipment_loads",
+  "summary_section",
+  "total_pallets",
+  "total_weight",
+  "total_pieces",
+  "delivery_section",
+  "proof_of_delivery",
+  "delivered_date",
+  "delivery_gps_lat",
+  "delivery_gps_lng"
+ ],
+ "fields": [
+  {
+   "fieldname": "shipment_number",
+   "fieldtype": "Data",
+   "label": "Shipment Number",
+   "read_only": 1
+  },
+  {
+   "default": "Planning",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Planning\nPicking\nStaging\nLoading\nShipped\nDelivered"
+  },
+  {
+   "default": "Today",
+   "fieldname": "ship_date",
+   "fieldtype": "Date",
+   "label": "Ship Date"
+  },
+  {
+   "default": "LTL",
+   "fieldname": "ship_method",
+   "fieldtype": "Select",
+   "label": "Ship Method",
+   "options": "LTL\nFTL\nCourier\nCustomer Pickup"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "sales_order",
+   "fieldtype": "Link",
+   "label": "Sales Order",
+   "options": "Sales Order"
+  },
+  {
+   "fieldname": "delivery_note",
+   "fieldtype": "Link",
+   "label": "Delivery Note",
+   "options": "Delivery Note"
+  },
+  {
+   "fieldname": "col_break",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "carrier",
+   "fieldtype": "Data",
+   "label": "Carrier"
+  },
+  {
+   "fieldname": "carrier_tracking",
+   "fieldtype": "Data",
+   "label": "Carrier Tracking"
+  },
+  {
+   "fieldname": "freight_cost_estimated",
+   "fieldtype": "Currency",
+   "label": "Freight Cost (Estimated)"
+  },
+  {
+   "fieldname": "freight_cost_actual",
+   "fieldtype": "Currency",
+   "label": "Freight Cost (Actual)"
+  },
+  {
+   "fieldname": "loads_section",
+   "fieldtype": "Section Break",
+   "label": "Loads"
+  },
+  {
+   "fieldname": "shipment_loads",
+   "fieldtype": "Table",
+   "label": "Shipment Loads",
+   "options": "Shipment Load"
+  },
+  {
+   "fieldname": "summary_section",
+   "fieldtype": "Section Break",
+   "label": "Summary"
+  },
+  {
+   "fieldname": "total_pallets",
+   "fieldtype": "Int",
+   "label": "Total Pallets",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_weight",
+   "fieldtype": "Float",
+   "label": "Total Weight (lbs)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_pieces",
+   "fieldtype": "Int",
+   "label": "Total Pieces",
+   "read_only": 1
+  },
+  {
+   "fieldname": "delivery_section",
+   "fieldtype": "Section Break",
+   "label": "Delivery Confirmation"
+  },
+  {
+   "fieldname": "proof_of_delivery",
+   "fieldtype": "Attach",
+   "label": "Proof of Delivery"
+  },
+  {
+   "fieldname": "delivered_date",
+   "fieldtype": "Datetime",
+   "label": "Delivered Date"
+  },
+  {
+   "fieldname": "delivery_gps_lat",
+   "fieldtype": "Float",
+   "label": "Delivery GPS Latitude"
+  },
+  {
+   "fieldname": "delivery_gps_lng",
+   "fieldtype": "Float",
+   "label": "Delivery GPS Longitude"
+  }
+ ],
+ "links": [],
+ "modified": "2026-03-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Plant Operations",
+ "name": "Shipment",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

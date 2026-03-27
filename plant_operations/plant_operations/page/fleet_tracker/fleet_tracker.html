@@ -1,0 +1,28 @@
+<div class="fleet-container" style="display:flex; height:calc(100vh - 60px); overflow:hidden;">
+    <!-- Map -->
+    <div id="fleet-map" style="flex:1; min-height:400px;"></div>
+
+    <!-- Sidebar: Active Loads -->
+    <div class="fleet-sidebar" style="width:360px; overflow-y:auto; border-left:1px solid #d1d8dd; background:#f7f7f7; padding:12px;">
+        <div style="font-size:14px; font-weight:700; margin-bottom:8px; color:#333;">
+            <i class="fa fa-truck"></i> Active Fleet
+        </div>
+        <div class="fleet-stats" style="display:flex; gap:8px; margin-bottom:12px;">
+            <div style="flex:1; text-align:center; padding:8px; background:#e8f5e9; border-radius:6px;">
+                <div class="fleet-count" style="font-size:24px; font-weight:800; color:#2E7D32;">0</div>
+                <div style="font-size:9px; color:#666; text-transform:uppercase; letter-spacing:1px;">In Transit</div>
+            </div>
+            <div style="flex:1; text-align:center; padding:8px; background:#e3f2fd; border-radius:6px;">
+                <div class="fleet-pallets" style="font-size:24px; font-weight:800; color:#1565C0;">0</div>
+                <div style="font-size:9px; color:#666; text-transform:uppercase; letter-spacing:1px;">Pallets</div>
+            </div>
+        </div>
+        <div class="fleet-list"></div>
+        <div style="margin-top:12px; text-align:center;">
+            <button class="btn btn-xs btn-primary fleet-refresh">
+                <i class="fa fa-refresh"></i> Refresh
+            </button>
+            <span class="fleet-last-update" style="font-size:10px; color:#999; margin-left:8px;"></span>
+        </div>
+    </div>
+</div>

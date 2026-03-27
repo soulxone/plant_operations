@@ -1,0 +1,211 @@
+{
+ "actions": [],
+ "autoname": "RL-.YYYY.-.#####",
+ "creation": "2026-03-27 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "is_submittable": 1,
+ "track_changes": 1,
+ "field_order": [
+  "receiving_number",
+  "status",
+  "purchase_order",
+  "supplier",
+  "received_date",
+  "received_by",
+  "col_break",
+  "trailer_number",
+  "seal_number",
+  "carrier",
+  "items_section",
+  "receiving_items",
+  "inspection_section",
+  "caliper_test",
+  "ect_test",
+  "moisture_pct",
+  "col_break2",
+  "inspection_passed",
+  "inspector",
+  "gps_section",
+  "gps_latitude",
+  "gps_longitude"
+ ],
+ "fields": [
+  {
+   "fieldname": "receiving_number",
+   "fieldtype": "Data",
+   "label": "Receiving Number",
+   "read_only": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Draft\nReceived\nInspected\nPut Away\nRejected"
+  },
+  {
+   "fieldname": "purchase_order",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Purchase Order",
+   "options": "Purchase Order"
+  },
+  {
+   "fetch_from": "purchase_order.supplier",
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Supplier",
+   "options": "Supplier",
+   "read_only": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "received_date",
+   "fieldtype": "Date",
+   "label": "Received Date"
+  },
+  {
+   "default": "__user",
+   "fieldname": "received_by",
+   "fieldtype": "Link",
+   "label": "Received By",
+   "options": "User"
+  },
+  {
+   "fieldname": "col_break",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "trailer_number",
+   "fieldtype": "Data",
+   "label": "Trailer Number"
+  },
+  {
+   "fieldname": "seal_number",
+   "fieldtype": "Data",
+   "label": "Seal Number"
+  },
+  {
+   "fieldname": "carrier",
+   "fieldtype": "Data",
+   "label": "Carrier"
+  },
+  {
+   "fieldname": "items_section",
+   "fieldtype": "Section Break",
+   "label": "Items"
+  },
+  {
+   "fieldname": "receiving_items",
+   "fieldtype": "Table",
+   "label": "Receiving Items",
+   "options": "Receiving Item"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "inspection_section",
+   "fieldtype": "Section Break",
+   "label": "Quality Inspection"
+  },
+  {
+   "description": "Board caliper in inches",
+   "fieldname": "caliper_test",
+   "fieldtype": "Float",
+   "label": "Caliper Test"
+  },
+  {
+   "description": "Edge Crush Test lbs/in",
+   "fieldname": "ect_test",
+   "fieldtype": "Float",
+   "label": "ECT Test"
+  },
+  {
+   "description": "Moisture content %",
+   "fieldname": "moisture_pct",
+   "fieldtype": "Float",
+   "label": "Moisture %"
+  },
+  {
+   "fieldname": "col_break2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "inspection_passed",
+   "fieldtype": "Check",
+   "label": "Inspection Passed"
+  },
+  {
+   "fieldname": "inspector",
+   "fieldtype": "Link",
+   "label": "Inspector",
+   "options": "User"
+  },
+  {
+   "fieldname": "gps_section",
+   "fieldtype": "Section Break",
+   "label": "Location"
+  },
+  {
+   "fieldname": "gps_latitude",
+   "fieldtype": "Float",
+   "label": "GPS Latitude"
+  },
+  {
+   "fieldname": "gps_longitude",
+   "fieldtype": "Float",
+   "label": "GPS Longitude"
+  }
+ ],
+ "links": [],
+ "modified": "2026-03-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Plant Operations",
+ "name": "Receiving Log",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

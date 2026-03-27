@@ -1,0 +1,184 @@
+{
+ "actions": [],
+ "autoname": "PLT-.YYYY.-.#####",
+ "creation": "2026-03-27 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "is_submittable": 1,
+ "track_changes": 1,
+ "field_order": [
+  "pallet_id",
+  "barcode",
+  "status",
+  "sales_order",
+  "delivery_note",
+  "customer",
+  "item_code",
+  "item_name",
+  "quantity",
+  "weight_lbs",
+  "cube_ft3",
+  "col_break",
+  "warehouse",
+  "zone",
+  "last_scan_time",
+  "last_scan_by",
+  "pallet_tag_printed",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "pallet_id",
+   "fieldtype": "Data",
+   "label": "Pallet ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "barcode",
+   "fieldtype": "Data",
+   "label": "Barcode",
+   "read_only": 1
+  },
+  {
+   "default": "Created",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Created\nIn Production\nStaged\nLoaded\nShipped\nDelivered"
+  },
+  {
+   "fieldname": "sales_order",
+   "fieldtype": "Link",
+   "label": "Sales Order",
+   "options": "Sales Order"
+  },
+  {
+   "fieldname": "delivery_note",
+   "fieldtype": "Link",
+   "label": "Delivery Note",
+   "options": "Delivery Note"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item Code",
+   "options": "Item"
+  },
+  {
+   "fetch_from": "item_code.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "weight_lbs",
+   "fieldtype": "Float",
+   "label": "Weight (lbs)"
+  },
+  {
+   "fieldname": "cube_ft3",
+   "fieldtype": "Float",
+   "label": "Cube (ft³)"
+  },
+  {
+   "fieldname": "col_break",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "zone",
+   "fieldtype": "Data",
+   "label": "Zone"
+  },
+  {
+   "fieldname": "last_scan_time",
+   "fieldtype": "Datetime",
+   "label": "Last Scan Time"
+  },
+  {
+   "fieldname": "last_scan_by",
+   "fieldtype": "Link",
+   "label": "Last Scan By",
+   "options": "User"
+  },
+  {
+   "default": "0",
+   "fieldname": "pallet_tag_printed",
+   "fieldtype": "Check",
+   "label": "Pallet Tag Printed"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "Notes"
+  }
+ ],
+ "links": [],
+ "modified": "2026-03-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Plant Operations",
+ "name": "Pallet",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

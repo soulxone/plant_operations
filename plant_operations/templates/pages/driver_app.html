@@ -1,0 +1,204 @@
+{% extends "templates/web.html" %}
+
+{% block title %}Driver App{% endblock %}
+
+{% block page_content %}
+<style>
+  .driver-app { max-width: 480px; margin: 0 auto; padding: 16px; font-family: -apple-system, system-ui, sans-serif; }
+  .driver-header { text-align: center; margin-bottom: 20px; }
+  .driver-header h2 { font-size: 22px; font-weight: 800; margin: 0; }
+  .driver-header .sub { color: #888; font-size: 12px; }
+  .driver-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .driver-card h3 { font-size: 14px; font-weight: 700; margin: 0 0 8px; color: #333; }
+  .driver-btn { display: block; width: 100%; padding: 16px; font-size: 16px; font-weight: 700; border: none; border-radius: 10px; cursor: pointer; margin-bottom: 10px; text-align: center; }
+  .btn-start { background: #4CAF50; color: #fff; }
+  .btn-arrive { background: #FF9800; color: #fff; }
+  .btn-deliver { background: #2196F3; color: #fff; }
+  .btn-scan { background: #9C27B0; color: #fff; }
+  .driver-btn:active { opacity: 0.8; transform: scale(0.98); }
+  .status-bar { padding: 10px; border-radius: 8px; text-align: center; font-weight: 700; font-size: 14px; margin-bottom: 12px; }
+  .status-building { background: #FFF3E0; color: #E65100; }
+  .status-transit { background: #E3F2FD; color: #1565C0; }
+  .status-delivered { background: #E8F5E9; color: #2E7D32; }
+  .gps-status { font-size: 11px; color: #888; text-align: center; margin-top: 8px; }
+  .load-input { width: 100%; padding: 12px; font-size: 16px; border: 2px solid #ddd; border-radius: 8px; text-align: center; }
+</style>
+
+<div class="driver-app">
+  <div class="driver-header">
+    <h2>Plant Operations</h2>
+    <div class="sub">Driver Delivery App</div>
+  </div>
+
+  <!-- Load Selection -->
+  <div class="driver-card" id="load-select">
+    <h3>Enter Load Tag #</h3>
+    <input type="text" class="load-input" id="load-id" placeholder="LD-2026-00001" />
+    <button class="driver-btn btn-scan" onclick="scanLoadTag()" style="margin-top:10px;">
+      📷 Scan Barcode
+    </button>
+    <button class="driver-btn" onclick="loadTrip()" style="background:#333;color:#fff;margin-top:4px;">
+      Load Trip
+    </button>
+  </div>
+
+  <!-- Trip Controls (hidden until load selected) -->
+  <div id="trip-panel" style="display:none;">
+    <div class="status-bar" id="trip-status"></div>
+
+    <div class="driver-card" id="trip-info"></div>
+
+    <button class="driver-btn btn-start" onclick="startTrip()">
+      🚛 Start Trip
+    </button>
+    <button class="driver-btn btn-arrive" onclick="arriveAtCustomer()">
+      📍 Arrive at Customer
+    </button>
+    <button class="driver-btn btn-deliver" onclick="markDelivered()">
+      ✅ Mark Delivered
+    </button>
+
+    <div class="gps-status" id="gps-status">GPS: Waiting...</div>
+  </div>
+</div>
+
+<script>
+var currentLoad = null;
+var gpsWatchId = null;
+var lastPosition = null;
+
+function loadTrip() {
+    var loadId = document.getElementById("load-id").value.trim();
+    if (!loadId) return alert("Enter a Load Tag number");
+
+    fetch("/api/method/frappe.client.get", {
+        method: "POST",
+        headers: {"Content-Type": "application/json", "X-Frappe-CSRF-Token": frappe.csrf_token},
+        body: JSON.stringify({doctype: "Load Tag", name: loadId})
+    })
+    .then(r => r.json())
+    .then(d => {
+        if (d.message) {
+            currentLoad = d.message;
+            showTrip();
+        } else {
+            alert("Load not found: " + loadId);
+        }
+    })
+    .catch(e => alert("Error: " + e.message));
+}
+
+function scanLoadTag() {
+    if ("BarcodeDetector" in window) {
+        // Use camera scanner
+        alert("Point camera at load tag barcode");
+    } else {
+        // Manual entry fallback
+        document.getElementById("load-id").focus();
+    }
+}
+
+function showTrip() {
+    var lt = currentLoad;
+    document.getElementById("load-select").style.display = "none";
+    document.getElementById("trip-panel").style.display = "block";
+
+    var statusClass = lt.status === "In Transit" ? "status-transit" : lt.status === "Delivered" ? "status-delivered" : "status-building";
+    document.getElementById("trip-status").className = "status-bar " + statusClass;
+    document.getElementById("trip-status").textContent = lt.status;
+
+    document.getElementById("trip-info").innerHTML = [
+        "<h3>" + lt.name + "</h3>",
+        "<div>Trailer: <b>" + (lt.trailer_number || "—") + "</b> | Seal: <b>" + (lt.seal_number || "—") + "</b></div>",
+        "<div style='margin-top:6px;font-size:16px;font-weight:700;'>→ " + (lt.destination_customer || "—") + "</div>",
+        "<div style='color:#666;'>" + (lt.destination_address || "") + "</div>",
+        "<div style='margin-top:8px;'>Pallets: <b>" + (lt.total_pallets || 0) + "</b> | Pieces: <b>" + (lt.total_pieces || 0) + "</b> | Weight: <b>" + Math.round(lt.total_weight || 0) + "</b> lbs</div>",
+    ].join("");
+
+    startGPSTracking();
+}
+
+function startTrip() {
+    if (!currentLoad) return;
+    updateLoadStatus("In Transit");
+}
+
+function arriveAtCustomer() {
+    if (!currentLoad) return;
+    sendGPSUpdate();
+    alert("Arrival logged at " + new Date().toLocaleTimeString());
+}
+
+function markDelivered() {
+    if (!currentLoad) return;
+    sendGPSUpdate();
+    updateLoadStatus("Delivered");
+    stopGPSTracking();
+    alert("Delivery confirmed!");
+}
+
+function updateLoadStatus(newStatus) {
+    fetch("/api/method/frappe.client.set_value", {
+        method: "POST",
+        headers: {"Content-Type": "application/json", "X-Frappe-CSRF-Token": frappe.csrf_token},
+        body: JSON.stringify({doctype: "Load Tag", name: currentLoad.name, fieldname: "status", value: newStatus})
+    })
+    .then(r => r.json())
+    .then(d => {
+        currentLoad.status = newStatus;
+        showTrip();
+    });
+}
+
+function startGPSTracking() {
+    if (!navigator.geolocation) {
+        document.getElementById("gps-status").textContent = "GPS: Not available";
+        return;
+    }
+
+    gpsWatchId = navigator.geolocation.watchPosition(
+        function(pos) {
+            lastPosition = pos;
+            document.getElementById("gps-status").textContent =
+                "GPS: " + pos.coords.latitude.toFixed(5) + ", " + pos.coords.longitude.toFixed(5) +
+                " (±" + Math.round(pos.coords.accuracy) + "m)";
+
+            // Send update every 60 seconds
+            if (!window._lastGpsSend || Date.now() - window._lastGpsSend > 60000) {
+                sendGPSUpdate();
+                window._lastGpsSend = Date.now();
+            }
+        },
+        function(err) {
+            document.getElementById("gps-status").textContent = "GPS Error: " + err.message;
+        },
+        { enableHighAccuracy: true, maximumAge: 30000 }
+    );
+}
+
+function stopGPSTracking() {
+    if (gpsWatchId !== null) {
+        navigator.geolocation.clearWatch(gpsWatchId);
+        gpsWatchId = null;
+    }
+}
+
+function sendGPSUpdate() {
+    if (!lastPosition || !currentLoad) return;
+
+    fetch("/api/method/plant_operations.plant_operations.api.log_gps_position", {
+        method: "POST",
+        headers: {"Content-Type": "application/json", "X-Frappe-CSRF-Token": frappe.csrf_token},
+        body: JSON.stringify({
+            load_tag: currentLoad.name,
+            latitude: lastPosition.coords.latitude,
+            longitude: lastPosition.coords.longitude,
+            speed_mph: (lastPosition.coords.speed || 0) * 2.237,
+            heading: lastPosition.coords.heading || 0,
+            accuracy_meters: lastPosition.coords.accuracy || 0,
+            source: "Driver App"
+        })
+    }).catch(function() {});
+}
+</script>
+{% endblock %}

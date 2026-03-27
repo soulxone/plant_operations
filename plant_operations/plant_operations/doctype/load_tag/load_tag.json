@@ -1,0 +1,243 @@
+{
+ "actions": [],
+ "autoname": "LD-.YYYY.-.#####",
+ "creation": "2026-03-27 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "is_submittable": 1,
+ "track_changes": 1,
+ "field_order": [
+  "load_number",
+  "status",
+  "trailer_number",
+  "seal_number",
+  "carrier",
+  "driver_name",
+  "driver_phone",
+  "col_break",
+  "delivery_note",
+  "ship_date",
+  "expected_delivery_date",
+  "origin",
+  "destination_customer",
+  "destination_address",
+  "pallet_section",
+  "load_pallets",
+  "summary_section",
+  "total_pallets",
+  "total_weight",
+  "total_pieces",
+  "gps_section",
+  "gps_tracking_active",
+  "last_gps_lat",
+  "last_gps_lng",
+  "last_gps_time",
+  "tracking_url",
+  "bol_number",
+  "load_tag_printed"
+ ],
+ "fields": [
+  {
+   "fieldname": "load_number",
+   "fieldtype": "Data",
+   "label": "Load Number",
+   "read_only": 1
+  },
+  {
+   "default": "Building",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Building\nSealed\nIn Transit\nDelivered"
+  },
+  {
+   "fieldname": "trailer_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Trailer Number"
+  },
+  {
+   "fieldname": "seal_number",
+   "fieldtype": "Data",
+   "label": "Seal Number"
+  },
+  {
+   "fieldname": "carrier",
+   "fieldtype": "Data",
+   "label": "Carrier"
+  },
+  {
+   "fieldname": "driver_name",
+   "fieldtype": "Data",
+   "label": "Driver Name"
+  },
+  {
+   "fieldname": "driver_phone",
+   "fieldtype": "Data",
+   "label": "Driver Phone"
+  },
+  {
+   "fieldname": "col_break",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "delivery_note",
+   "fieldtype": "Link",
+   "label": "Delivery Note",
+   "options": "Delivery Note"
+  },
+  {
+   "default": "Today",
+   "fieldname": "ship_date",
+   "fieldtype": "Date",
+   "label": "Ship Date"
+  },
+  {
+   "fieldname": "expected_delivery_date",
+   "fieldtype": "Date",
+   "label": "Expected Delivery Date"
+  },
+  {
+   "fieldname": "origin",
+   "fieldtype": "Data",
+   "label": "Origin"
+  },
+  {
+   "fieldname": "destination_customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Destination Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "destination_address",
+   "fieldtype": "Small Text",
+   "label": "Destination Address"
+  },
+  {
+   "fieldname": "pallet_section",
+   "fieldtype": "Section Break",
+   "label": "Pallets"
+  },
+  {
+   "fieldname": "load_pallets",
+   "fieldtype": "Table",
+   "label": "Load Pallets",
+   "options": "Load Pallet"
+  },
+  {
+   "fieldname": "summary_section",
+   "fieldtype": "Section Break",
+   "label": "Summary"
+  },
+  {
+   "fieldname": "total_pallets",
+   "fieldtype": "Int",
+   "label": "Total Pallets",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_weight",
+   "fieldtype": "Float",
+   "label": "Total Weight (lbs)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_pieces",
+   "fieldtype": "Int",
+   "label": "Total Pieces",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gps_section",
+   "fieldtype": "Section Break",
+   "label": "GPS Tracking"
+  },
+  {
+   "default": "0",
+   "fieldname": "gps_tracking_active",
+   "fieldtype": "Check",
+   "label": "GPS Tracking Active"
+  },
+  {
+   "fieldname": "last_gps_lat",
+   "fieldtype": "Float",
+   "label": "Last GPS Latitude"
+  },
+  {
+   "fieldname": "last_gps_lng",
+   "fieldtype": "Float",
+   "label": "Last GPS Longitude"
+  },
+  {
+   "fieldname": "last_gps_time",
+   "fieldtype": "Datetime",
+   "label": "Last GPS Time"
+  },
+  {
+   "fieldname": "tracking_url",
+   "fieldtype": "Data",
+   "label": "Tracking URL"
+  },
+  {
+   "fieldname": "bol_number",
+   "fieldtype": "Data",
+   "label": "BOL Number"
+  },
+  {
+   "default": "0",
+   "fieldname": "load_tag_printed",
+   "fieldtype": "Check",
+   "label": "Load Tag Printed"
+  }
+ ],
+ "links": [],
+ "modified": "2026-03-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Plant Operations",
+ "name": "Load Tag",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

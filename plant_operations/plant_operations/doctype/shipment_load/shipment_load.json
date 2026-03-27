@@ -1,0 +1,64 @@
+{
+ "actions": [],
+ "creation": "2026-03-27 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "istable": 1,
+ "field_order": [
+  "load_tag",
+  "load_number",
+  "pallet_count",
+  "total_weight",
+  "total_pieces"
+ ],
+ "fields": [
+  {
+   "fieldname": "load_tag",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Load Tag",
+   "options": "Load Tag",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "load_tag.load_number",
+   "fieldname": "load_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Load Number",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "load_tag.total_pallets",
+   "fieldname": "pallet_count",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Pallet Count",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "load_tag.total_weight",
+   "fieldname": "total_weight",
+   "fieldtype": "Float",
+   "label": "Total Weight (lbs)",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "load_tag.total_pieces",
+   "fieldname": "total_pieces",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total Pieces",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-03-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Plant Operations",
+ "name": "Shipment Load",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
